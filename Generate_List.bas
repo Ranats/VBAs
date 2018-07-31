@@ -1,3 +1,5 @@
+'Written by Satoshi Coda.
+
 Attribute VB_Name = "Generate_List"
 Sub Generate_List()
     Dim buf As String, cnt As Long
@@ -23,7 +25,7 @@ Sub Generate_List()
     count = 1
     For Each sld In ActivePresentation.Slides
         For Each sh In sld.Shapes
-            '‹ó‚ÌƒvƒŒ[ƒXƒzƒ‹ƒ_‚É“ü—Í
+            'ç©ºã®ãƒ—ãƒ¬ãƒ¼ã‚¹ãƒ›ãƒ«ãƒ€ã«å…¥åŠ›
             If Not sh.TextFrame.HasText Then
                 With sh.TextFrame.TextRange
                     With .ParagraphFormat
