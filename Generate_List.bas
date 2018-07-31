@@ -25,11 +25,25 @@ Sub Generate_List()
         For Each sh In sld.Shapes
             '空のプレースホルダに入力
             If Not sh.TextFrame.HasText Then
-                sh.TextFrame.TextRange.Text = str
+                With sh.TextFrame.TextRange
+                    With .ParagraphFormat
+                        '.Bullet.Type = ppBulletUnnumbered
+                        .SpaceAfter = 2
+                    End With
+                    .Text = str
+                End With
+                    
                 For Each title In Split(str, vbCrLf)
-                    With sh.TextFrame.TextRange.Sentences(count).ActionSettings(ppMouseClick)
-                        .Action = ppActionHyperlink
-                        .Hyperlink.Address = Path & title
+                    If title = "" Then
+                        Exit For
+                    End If
+                        
+                    With sh.TextFrame.TextRange.Sentences(count)
+                        .Text = Left(title, InStrRev(title, ".") - 1)
+                        With .ActionSettings(ppMouseClick)
+                            .Action = ppActionHyperlink
+                            .Hyperlink.Address = Path & title
+                        End With
                     End With
                     count = count + 1
                 Next
